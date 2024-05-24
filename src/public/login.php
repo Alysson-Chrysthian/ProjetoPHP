@@ -15,7 +15,7 @@
         </section>
         <section id="login">
             <figure>
-                <img src="assets/images/content/RiscaFaca-Logo.png" alt="Logo da risca faca">
+                <img src="assets/images/content/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
             <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
                 <h2>Registrar-se</h2>

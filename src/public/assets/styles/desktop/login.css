@@ -5,6 +5,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: static;
     overflow: hidden;
 }
 
