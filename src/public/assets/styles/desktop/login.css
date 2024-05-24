@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+main {
+    transform: translateY(0px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+h1#nome-empresa {
+    color: white;
+    font-size: 3em;
+    transform: translateY(-50px);
+    text-shadow: -2px 1px 5px rgb(0, 0, 0);
+    display: block;
+}
+
+section#background {
+    background-image: url(../../images/content/background/Background-picanha.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom right;
+    filter: blur(3px);
+    transform: scale(1.1);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+section#login {
+    background-color: rgba(255, 255, 255, 0.507);
+    display: flex;
+    min-width: 340px;
+    padding: 10px 10px;
+}
+
+form h2 {
+    padding: 40px 0px 10px 0px;
+}
+
+figure img {
+    display: none;
+}
+
+/*Configurando o form*/
+form input::placeholder {
+    color: rgba(0, 0, 0, 0.61);
+}
+
+form button:hover {
+    background-color: rgba(255, 255, 255, 0.603);
+}
+
+form a {
+    font-weight: bold;
+}
