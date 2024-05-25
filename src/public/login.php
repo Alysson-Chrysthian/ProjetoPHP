@@ -6,7 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="assets/styles/android/login.css" media="all">
     <link rel="stylesheet" href="assets/styles/desktop/login.css" media="screen and (min-width: 620px)">
-    <link rel="shortcut icon" href="assets/images/favicon//RiscaFaca-Logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/favicon/RiscaFaca-Logo.jpg" type="image/x-icon">
 </head>
 <body>
     <main>
@@ -15,7 +15,7 @@
         </section>
         <section id="login">
             <figure>
-                <img src="assets/images/content/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
+                <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
             <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
                 <h2>Registrar-se</h2>
@@ -33,6 +33,10 @@
                 </div>
                 <div class="container-input">
                     <input type="text" name="nascimento" class="input-group" placeholder="Nascimento">
+                </div>
+                <div>
+                    <label for="ManterConectadoId">Manter-se Conectado</label>
+                    <input type="checkbox" name="ManterConectado" id="ManterConectadoId">
                 </div>
                 <button type="submit">
                     Registrar-se

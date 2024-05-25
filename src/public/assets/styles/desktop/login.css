@@ -18,7 +18,7 @@ h1#nome-empresa {
 }
 
 section#background {
-    background-image: url(../../images/content/background/Background-picanha.jpeg);
+    background-image: url(../../images/background/Background-picanha.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom right;
@@ -31,7 +31,7 @@ section#background {
 }
 
 section#login {
-    background-color: rgba(255, 255, 255, 0.507);
+    background-color: rgba(255, 255, 255, 0.527);
     display: flex;
     min-width: 340px;
     padding: 10px 10px;

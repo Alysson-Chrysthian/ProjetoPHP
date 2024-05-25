@@ -55,14 +55,14 @@ form {
     transform: translateY(-25px);
 }
 
-form input {
+form input.input-group {
     width: 100%;
     padding: 10px;
     margin: 5px 0px;
     outline: none;
 }
 
-form input::placeholder {
+form input.input-group::placeholder {
     font-weight: bold;
 }
 
