@@ -31,10 +31,11 @@ section#background {
 }
 
 section#login {
-    background-color: rgba(255, 255, 255, 0.527);
+    background-color: rgba(255, 255, 255, 0.576);
     display: flex;
     min-width: 340px;
     padding: 10px 10px;
+    border-radius: 5px;
 }
 
 form h2 {
