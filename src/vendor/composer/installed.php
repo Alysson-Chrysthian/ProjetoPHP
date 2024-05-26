@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'app/src',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'a79c6dddc00ebea2bc1efdd4202bd4f7c6aaea05',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'app/src' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'a79c6dddc00ebea2bc1efdd4202bd4f7c6aaea05',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'misterioso013/cpf' => array(
+            'pretty_version' => '1.0.0',
+            'version' => '1.0.0.0',
+            'reference' => '7c5cc643130b57db8b9738aa78a49b41b6e3e5bf',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../misterioso013/cpf',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.9.1',
+            'version' => '6.9.1.0',
+            'reference' => '039de174cd9c17a8389754d3b877a2ed22743e18',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

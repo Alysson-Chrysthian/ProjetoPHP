@@ -1,0 +1,21 @@
+{
+    "name": "app/src",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/php/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alysson-Chrysthian",
+            "email": "Alyssonchrysthian@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "misterioso013/cpf": "^1.0"
+    }
+}

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="assets/styles/android/login.css" media="all">
+    <link rel="stylesheet" href="assets/styles/android/login.css">
     <link rel="stylesheet" href="assets/styles/desktop/login.css" media="screen and (min-width: 620px)">
-    <link rel="shortcut icon" href="assets/images/favicon/RiscaFaca-Logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/favicon/favicon-login.png" type="image/x-icon">
 </head>
 <body>
     <main>
@@ -18,30 +18,23 @@
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
             <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
-                <h2>Registrar-se</h2>
-                <div class="container-input">
-                    <input type="text" name="name" class="input-group" placeholder="Nome">
-                </div>
+                <h2>Entrar</h2>
                 <div class="container-input">
                     <input type="text" name="email" class="input-group" placeholder="Email">
                 </div>
                 <div class="container-input">
                     <input type="text" name="password" class="input-group" placeholder="Senha">
                 </div>
-                <div class="container-input">
-                    <input type="text" name="cpf" class="input-group" placeholder="Cpf">
-                </div>
-                <div class="container-input">
-                    <input type="text" name="nascimento" class="input-group" placeholder="Nascimento">
-                </div>
                 <div>
                     <label for="ManterConectadoId">Manter-se Conectado</label>
                     <input type="checkbox" name="ManterConectado" id="ManterConectadoId">
                 </div>
                 <button type="submit">
-                    Registrar-se
+                    Entrar
                 </button>
-                <a href="#">Entrar</a>
+                <a href="SignUp.php">Registrar-se</a>
+                <a href="#">Entra como administrador</a>
+                <a href="EsqueciSenha.php">Esqueci Senha</a>
             </form>
         </section>
     </main>
