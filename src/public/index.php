@@ -1,9 +1,3 @@
-<?php
-    session_start();
-    if (!isset($_SESSION['user_id'])) {
-        header('location: SignUp.php');
-    }
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

@@ -1,40 +1,55 @@
 <?php
     namespace App\Mail;
 
+    use Dotenv\Dotenv;
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
+    $dotenv = Dotenv::createImmutable(__DIR__.'\..\..\..');
+    $dotenv->load();
+
     class Mail {
-        public static function EnviarEmail($endereço) {
-            $codigo = '';
+        
+        private string $host;
+        private string $user;
+        private string $pass;
+        private string $port;
+        private PHPMailer $mail;
 
-            for ($i=0;$i<6;$i++) {
-                $codigo .= (string) rand(0, 9);
-            }
-            
-            $mail = new PHPMailer(true);
-            
+        public function __construct()
+        {
+            $this->host = $_ENV['SMTP_HOST'];
+            $this->user = $_ENV['SMTP_USER'];
+            $this->pass = $_ENV['SMTP_PASS'];
+            $this->port = $_ENV['SMTP_PORT'];
+            $this->mail = new PHPMailer(true);
+        }
+
+        public function sendMail($Message, $Address)
+        {
+            $mail = $this->mail;
             try {
-                $mail->isSMTP();
                 $mail->SMTPAuth = true;
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Password = '@EEEPRita1';
-                $mail->Username = 'alysson.chaves@aluno.ce.gov.br';
-                $mail->Port = 587;
-                $mail->Host = 'smtp.gmail.com';
+                $mail->isSMTP();
                 $mail->CharSet = 'UTF-8';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-                $mail->addAddress($endereço);
+                $mail->Host = $this->host;
+                $mail->Username = $this->user;
+                $mail->Password = $this->pass;
+                $mail->Port = $this->port;
 
-                $mail->isHTML();
-                $mail->Subject = 'Atenciosamente churrascaria Risca Faca';
-                $mail->Body = 'Codigo de verificação: '.$codigo;
-                
+                $mail->setFrom($this->user);
+                $mail->addAddress($Address);
+
+                $mail->Subject = 'Atenciosamento Risca Faca';
+                $mail->Body = 'Codigo de verificação: '.$Message;
+
                 $mail->send();
-                return $codigo;
+                return true;
             } catch (Exception $e) {
-                print('Nao foi possivel enviar um email'. $e->getMessage());
                 return false;
             }
         }
+
     }

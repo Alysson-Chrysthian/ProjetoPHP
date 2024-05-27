@@ -33,7 +33,7 @@
                     Entrar
                 </button>
                 <a href="SignUp.php">Registrar-se</a>
-                <a href="#">Entra como administrador</a>
+                <a href="">Entra como administrador</a>
                 <a href="EsqueciSenha.php">Esqueci Senha</a>
             </form>
         </section>

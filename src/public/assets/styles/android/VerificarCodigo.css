@@ -73,3 +73,12 @@ p#erro {
     font-weight: bold;
     color: rgb(144, 33, 33);
 }
+
+form a {
+    color: black;
+    text-align: none;
+}
+
+form a:hover {
+    text-decoration: underline;
+}

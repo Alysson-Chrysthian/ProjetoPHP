@@ -1,86 +1,90 @@
 <?php
     namespace App\User;
 
-    use App\DB\DB;
     use Misterioso013\Tools\CPF;
+    use App\Database\Database;
 
     class User {
-        
-        private const REGEX_NOME = '/[A-z ]{3,}/';
-        private const REGEX_CPF = '/(\d{3})\.(\d{3})\.(\d{3})\-(\d{2})/';
-        private const REGEX_SENHA = '/(?=.*[A-z])(?=.*[0-9])(?=.*[@#&\$\%\-_])[A-z0-9@#&\$\%\-_]{8,16}/';
-        private const REGEX_NASC = '/(\d{4})\-(\d{2})\-(\d{2})/';
 
-        private $nome;
-        private $mail;
-        private $cpf;
-        private $senha;
-        private $nasc;
+        private const REGEX_NAME = '/[A-z ]{3,}/';
+        private const REGEX_PASS = '/(?=.*[0-9])(?=.*[A-z])(?=.*[@#\-_\$\&])[A-z0-9@#\-_\$\&]{8,16}/';
+        private const REGEX_CPF = '/([0-9]{3})\.([0-9]{3})\.([0-9]{3})\-([0-9]{2})/';
+        private const REGEX_NASC = '/([0-9]{4})\-([0-9]{2})\-([0-9]{2})/';
 
-        public function __construct($nome, $mail, $cpf, $senha, $nasc)
-        {
-            $this->nome = $nome;
-            $this->mail = $mail;
+        private string $name;
+        private string $cpf;
+        private string $mail;
+        private string $pass;
+        private string $nasc;
+
+        public function __construct($name, $cpf, $mail, $pass, $nasc)
+        {   
+            $this->name = $name;
             $this->cpf = $cpf;
-            $this->senha = $senha;
+            $this->mail = $mail;
+            $this->pass = $pass;
             $this->nasc = $nasc;
         }
 
-        public function cadastrar() 
+        public function RegisterUser() 
         {
-            $conn = new DB();
-            $conn = $conn->conectar();
+            $user = $this->ConvertUserToArray();
+            $sql = 'INSERT INTO CLIENTES VALUES (DEFAULT, ?, ?, ?, ?, ?)';
 
-            $sql = 'INSERT INTO CLIENTES VALUES(0, ?, ?, ?, ?, ?)';
-            $query = $conn->prepare($sql);
-
-            $user = [
-                $this->nome,
-                $this->cpf,
-                $this->mail,
-                $this->senha,
-                $this->nasc
-            ];
-
-            $query->execute($user);
-            
-            return $conn->lastInsertId();
+            try {
+                $conn = new Database();
+                $conn = $conn->connect();
+                $query = $conn->prepare($sql);
+                $query = $query->execute($user);
+                return $conn->lastInsertId();
+            } catch (\PDOException $e) {
+                print 'Não foi possivel cadastrar o usuario, porfavor recarregue a pagina ou volte mais tarde';
+                return false;
+            }
         }
 
-        public function ValidarInfo()
+        public function ValidateInfo()
         {
-            $nasc = $this->nasc;
-            $nasc = explode('/', $nasc);
-            $nasc = $nasc[2].'-'.$nasc[1].'-'.$nasc[0];
-            $this->nasc = $nasc;
-            
-            if (!preg_match(self::REGEX_NOME, $this->nome)) {
+            if (!preg_match(self::REGEX_NAME, $this->name)) {
+                return false;
+            }
+            if (!preg_match(self::REGEX_PASS, $this->pass)) {
+                return false;
+            }
+            if (!$this->ValidateCpf()) {
                 return false;
             }
             if (!preg_match(self::REGEX_NASC, $this->nasc)) {
                 return false;
             }
-            if (!preg_match(self::REGEX_CPF, $this->cpf)) {
-                return false;
-            } 
-            if (!$this->ValidarCpf()) {
-                return false;
-            }
-            if (!preg_match(self::REGEX_SENHA, $this->senha)) {
+            if (!filter_var($this->mail, FILTER_VALIDATE_EMAIL)) {
                 return false;
             }
             return true;
-        } 
+        }
 
-        private function ValidarCpf() {
-            if (!preg_match(self::REGEX_CPF, $this->cpf)) {
-                return false;
+        private function ValidateCpf() 
+        {
+            if (preg_match(self::REGEX_CPF, $this->cpf)) {
+                $cpf = $this->cpf;
+                $cpf = str_replace('.', '', $cpf);
+                $cpf = str_replace('-', '', $cpf);            
+                return CPF::validateCPF($cpf);       
             }
-            $cpf = $this->cpf;
-            $cpf = str_replace('.', '', $cpf);
-            $cpf = str_replace('-', '', $cpf);
+            return false;
+        }
 
-            return CPF::validateCPF($cpf);
+        public function ConvertUserToArray()
+        {
+            $user = [];
+            foreach ($this as $k => $v) {
+                $v = addslashes(htmlspecialchars(trim($v)));
+                if ($k == 'pass') {
+                    $v = hash('sha256', $v);
+                }
+                array_push($user, $v);
+            }
+            return $user;
         }
 
     }
