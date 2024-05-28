@@ -4,7 +4,7 @@
 
     session_start();
 
-    use App\Class\User\User;
+    use App\Class\Controller\User;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         

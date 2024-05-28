@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="assets/styles/android/login.css">
+    <link rel="stylesheet" href="assets/styles/android/login.css" media="all">>
     <link rel="stylesheet" href="assets/styles/desktop/login.css" media="screen and (min-width: 620px)">
     <link rel="shortcut icon" href="assets/images/favicon/favicon-login.png" type="image/x-icon">
 </head>

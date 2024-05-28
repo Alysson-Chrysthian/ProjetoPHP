@@ -23,7 +23,7 @@ header {
     position: fixed;
     top: 0px;
     left: 0px;
-    box-shadow: 1px 1px 1px 4px rgba(0, 0, 0, 0.247);
+    box-shadow: 1px 1px 5px 4px rgba(0, 0, 0, 0.247);
 }
 
 figure {
@@ -53,7 +53,8 @@ nav span#menuButton:hover {
 }
 
 nav menu#Slide-Menu {
-    transition: all 0.5s ease-in-out;
+    padding: 10px 0px;
+    transition: 0.5s all ease-in-out;
     display: inline-block;
     width: 0px;
     height: 100vh;
@@ -61,18 +62,22 @@ nav menu#Slide-Menu {
     right: 0px;
     top: 0px;
     overflow: hidden;
-    background-color: rgb(158, 69, 69);
+    background-color: rgb(198, 69, 69);
 }
 
 nav menu#Slide-Menu div {
-    transform: translateY(28px);
+    transform: translateY(50px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px 0px;
 }
 
 nav menu a {
     color: white;
     display: block;
     text-decoration: none;
-    padding: 10px;
+    padding: 10px 10px;
 }
 
 nav menu a:hover {
@@ -83,12 +88,15 @@ nav menu a:hover {
 
 /*Editando a barra de pesquisa*/
 form {
+    padding: 0px 10px;
     margin-bottom: 15px;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 form input {
     padding: 9px;
-    width: 70%;
+    width: 90%;
     outline: none;
     border: none;
 }
@@ -99,7 +107,7 @@ form input::placeholder {
 
 form button {
     padding: 0px;
-    transform: translate(-42px, 2px);
+    transform: translate(0px, 0px);
     background-color: white;
     outline: none;
     border: none;
@@ -107,5 +115,5 @@ form button {
 }
 
 form button span#SearchIcon {
-    font-size: 1.01em;
+    font-size: 1.01em;
 }

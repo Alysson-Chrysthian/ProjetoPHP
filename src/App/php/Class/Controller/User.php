@@ -1,5 +1,5 @@
 <?php
-    namespace App\Class\User;
+    namespace App\Class\Controller;
 
     use Misterioso013\Tools\CPF;
     use App\Class\Database\Database;

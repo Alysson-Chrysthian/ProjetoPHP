@@ -1,5 +1,5 @@
 <?php
-    use App\Class\User\User;
+    use App\Class\Controller\User;
     use App\Enums\UserAcess\UserAcess;
 
     function VerifyLogin() 
@@ -43,3 +43,4 @@
         $_SESSION['acessType'] = serialize(UserAcess::USER_NORMAL);
 
     }
+

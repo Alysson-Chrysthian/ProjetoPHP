@@ -26,7 +26,7 @@
                     print '<a href="AddFood.php">Cadastrar Produto</a>';
                 }
             ?>
-            <a href="Exit.php">Sair</a>
+            <a href="../App/php/scripts/Exit.php">Sair</a>
         </div>
     </menu>
 </nav>
