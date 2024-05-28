@@ -1,7 +1,11 @@
 <?php
-    session_start();
+    require_once '../vendor/autoload.php';
     require_once '../App/php/Helpers/Helpers.php';
-    if (VerifyLogin()) {
+
+    session_start();
+
+    $Logged = VerifyLogin();
+    if ($Logged) {
         header('location: index.php');
     }
 ?>
@@ -24,7 +28,7 @@
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
-            <form action="VerificarCodigo.php" method="post">
+            <form action="../App/php/scripts/RegisterUser.php" method="post">
                 <h2>Registrar-se</h2>
                 <div class="container-input">
                     <input type="text" name="name" class="input-group" placeholder="Nome">
@@ -42,7 +46,7 @@
                     <input type="date" name="nasc" class="input-group">
                 </div>
                 <div>
-                    <label for="ManterConectadoId">Manter-se Conectado</label>
+                    <label for="StillConnId">Manter-se Conectado</label>
                     <input type="checkbox" name="StillConn" id="StillConnId">
                 </div>
                 <button type="submit">
@@ -50,12 +54,7 @@
                 </button>
                 <a href="LogIn.php">Entrar</a>
             </form>
-            <?php
-                if (isset($_SESSION['erro'])) {
-                    print('<p id="erro">Algo não foi preenchido corretamente</p>');
-                    unset($_SESSION['erro']);
-                }
-            ?>
+            <?php VerifyError() ?>
         </section>
     </main>
 </body>

@@ -1,3 +1,14 @@
+<?php
+    require_once '../vendor/autoload.php';
+    require_once '../App/php/Helpers/Helpers.php';
+
+    session_start();
+
+    $Logged = VerifyLogin();
+    if ($Logged) {
+        header('location: index.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -17,7 +28,7 @@
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
-            <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
+            <form action="../App/php/scripts/LogUser.php" method="post">
                 <h2>Entrar</h2>
                 <div class="container-input">
                     <input type="text" name="email" class="input-group" placeholder="Email">
@@ -26,8 +37,8 @@
                     <input type="text" name="password" class="input-group" placeholder="Senha">
                 </div>
                 <div>
-                    <label for="ManterConectadoId">Manter-se Conectado</label>
-                    <input type="checkbox" name="ManterConectado" id="ManterConectadoId">
+                    <label for="StillConnId">Manter-se Conectado</label>
+                    <input type="checkbox" name="StillConn" id="StillConnId">
                 </div>
                 <button type="submit">
                     Entrar
@@ -36,6 +47,7 @@
                 <a href="">Entra como administrador</a>
                 <a href="EsqueciSenha.php">Esqueci Senha</a>
             </form>
+            <?php VerifyError() ?>
         </section>
     </main>
 </body>

@@ -1,10 +1,12 @@
 <?php
-    namespace App\User;
+    namespace App\Class\User;
 
     use Misterioso013\Tools\CPF;
-    use App\Database\Database;
+    use App\Class\Database\Database;
 
     class User {
+
+        private const ERROR_MESSAGE = 'Não foi possivel realizar a operação por favor aguarde ou recarrega a pagina ';
 
         private const REGEX_NAME = '/[A-z ]{3,}/';
         private const REGEX_PASS = '/(?=.*[0-9])(?=.*[A-z])(?=.*[@#\-_\$\&])[A-z0-9@#\-_\$\&]{8,16}/';
@@ -26,6 +28,7 @@
             $this->nasc = $nasc;
         }
 
+        //
         public function RegisterUser() 
         {
             $user = $this->ConvertUserToArray();
@@ -38,11 +41,12 @@
                 $query = $query->execute($user);
                 return $conn->lastInsertId();
             } catch (\PDOException $e) {
-                print 'Não foi possivel cadastrar o usuario, porfavor recarregue a pagina ou volte mais tarde';
-                return false;
+                print self::ERROR_MESSAGE.$e->getMessage();
+                die();
             }
         }
 
+        //
         public function ValidateInfo()
         {
             if (!preg_match(self::REGEX_NAME, $this->name)) {
@@ -63,6 +67,58 @@
             return true;
         }
 
+        //
+        public function VerifyIfAlreadyExist() 
+        {
+            $name = $this->name;
+            $cpf = $this->cpf;
+            $mail = $this->mail;
+
+            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_NOME = ? OR CLIENTE_CPF = ? OR CLIENTE_EMAIL = ?";
+
+            try {
+                $conn = new Database();
+                $conn = $conn->connect();
+                $query = $conn->prepare($sql);
+                $query->execute([$name, $cpf, $mail]);
+                $query = $query->fetchAll(\PDO::FETCH_ASSOC);
+                $conn = null;
+            } catch (\PDOException $e) {
+                print self::ERROR_MESSAGE.$e->getMessage();
+                die();
+            }
+            
+            return count($query) > 0;
+        }
+
+        //
+        public function VerifyIfCanLog()
+        {
+            $email = $this->mail;
+            $pass = hash('sha256', $this->pass);
+
+            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_EMAIL = ? AND CLIENTE_SENHA = ?";
+
+            try {
+                $conn = new Database();
+                $conn = $conn->connect();
+                $query = $conn->prepare($sql);
+                $query->execute([$email, $pass]);
+                $query = $query->fetch(\PDO::FETCH_ASSOC);
+                $conn = null;
+            } catch (\PDOException $e) {
+                print self::ERROR_MESSAGE.$e->getMessage();
+                die();
+            }
+
+            if (isset($query['CLIENTE_ID'])) {
+                return $query['CLIENTE_ID'];
+            } else {
+                return false;
+            }
+        }
+
+        //
         private function ValidateCpf() 
         {
             if (preg_match(self::REGEX_CPF, $this->cpf)) {
@@ -74,7 +130,8 @@
             return false;
         }
 
-        public function ConvertUserToArray()
+        //
+        private function ConvertUserToArray()
         {
             $user = [];
             foreach ($this as $k => $v) {

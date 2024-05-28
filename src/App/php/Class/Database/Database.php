@@ -1,9 +1,9 @@
 <?php
-    namespace App\Database;
+    namespace App\Class\Database;
 
     use Dotenv\Dotenv;
 
-    $dotenv = Dotenv::createImmutable(__DIR__.'\..\..\..');
+    $dotenv = Dotenv::createImmutable(__DIR__.'\..\..\..\..');
     $dotenv->load();
 
     class Database {

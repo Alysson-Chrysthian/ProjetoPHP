@@ -1,42 +1,45 @@
 <?php
+    use App\Class\User\User;
+    use App\Enums\UserAcess\UserAcess;
+
     function VerifyLogin() 
     {
-        if (isset($_COOKIE['user_id'])) {
+        if (isset($_COOKIE['user_id']) && isset($_COOKIE['acessType'])) {
             $_SESSION['user_id'] = $_COOKIE['user_id'];
+            $_SESSION['acessType'] = $_COOKIE['acessType'];
         }
         return isset($_SESSION['user_id']);
     }
 
-    
-    function GenerateVerifyCode() 
-    {
-        $VerifyCode = '';
 
-        for ($i=0;$i<6;$i++) {
-            $VerifyCode .= (string) rand(0, 9);
+    function VerifyError() 
+    {
+        if (isset($_SESSION['erro'])) {
+            print('<p id="erro">'.$_SESSION['erro'].'</p>');
+            unset($_SESSION['erro']);
         }
-        return $VerifyCode;
     }
 
 
-    function VerifyCode($codeUserInput, $codeSystemInput)
+    function VerifyUser(User $user) 
     {
-        if (isset($codeUserInput) && isset($codeSystemInput)) {
-            return $codeSystemInput == $codeUserInput; 
-        } 
-        return false;
-    }
-
-
-    function CreateUserIdCookie($user_id)
-    {
-        setcookie('user_id', $user_id, time() + ((3600 *24)*360),'/');
-    }
-
-
-    function UnsetVariables(array $Vars) 
-    {
-        foreach ($Vars as $v) {
-            unset($v);
+        if (!$user->ValidateInfo()) {
+            return false;
         }
+        if ($user->VerifyIfAlreadyExist()) {
+            return false;
+        }
+        return true;
+    }
+
+
+    function CreateUserSession($id, $cookie)
+    {
+        if ($cookie) {
+            setcookie('user_id', $id, time() + ((3600*24)*360), '/');
+            setcookie('acessType', serialize(UserAcess::USER_NORMAL), time() + ((3600*24)*360), '/');
+        }
+        $_SESSION['user_id'] = $id;
+        $_SESSION['acessType'] = serialize(UserAcess::USER_NORMAL);
+
     }

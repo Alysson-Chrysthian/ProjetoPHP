@@ -28,6 +28,7 @@ h1#nome-empresa {
 }
 
 section#login {
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;

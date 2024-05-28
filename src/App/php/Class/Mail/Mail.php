@@ -1,11 +1,11 @@
 <?php
-    namespace App\Mail;
+    namespace App\Class\Mail;
 
     use Dotenv\Dotenv;
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-    $dotenv = Dotenv::createImmutable(__DIR__.'\..\..\..');
+    $dotenv = Dotenv::createImmutable(__DIR__.'\..\..\..\..');
     $dotenv->load();
 
     class Mail {

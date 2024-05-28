@@ -1,0 +1,111 @@
+@charset "UTF-8";
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100vw;
+    height: 100vh;
+}
+
+/*Configurando o cabeçario*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    box-shadow: 1px 1px 1px 4px rgba(0, 0, 0, 0.247);
+}
+
+figure {
+    overflow: hidden;
+    width: auto;
+    height: 50px;
+
+}
+
+figure img {
+    width: 80px;
+}
+
+nav span {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+}
+
+nav span#menuButton:hover {
+    background-color: rgba(211, 211, 211, 0.411);
+}
+
+nav menu#Slide-Menu {
+    transition: all 0.5s ease-in-out;
+    display: inline-block;
+    width: 0px;
+    height: 100vh;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    overflow: hidden;
+    background-color: rgb(158, 69, 69);
+}
+
+nav menu#Slide-Menu div {
+    transform: translateY(28px);
+}
+
+nav menu a {
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+}
+
+nav menu a:hover {
+    text-decoration: underline;
+    background-color: white;
+    color: black;
+}
+
+/*Editando a barra de pesquisa*/
+form {
+    margin-bottom: 15px;
+}
+
+form input {
+    padding: 9px;
+    width: 70%;
+    outline: none;
+    border: none;
+}
+
+form input::placeholder {
+    font-weight: bold;
+}
+
+form button {
+    padding: 0px;
+    transform: translate(-42px, 2px);
+    background-color: white;
+    outline: none;
+    border: none;
+    border-left: 1px solid black;
+}
+
+form button span#SearchIcon {
+    font-size: 1.01em;
+}
