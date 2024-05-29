@@ -14,7 +14,7 @@
 
         if (!$UserLog) {
             $_SESSION['erro'] = 'Usuario não existe';
-            header('location: ../../../public/LogIn.php');
+            header('location: ../../../public/LogInUser.php');
             die();
         }
 

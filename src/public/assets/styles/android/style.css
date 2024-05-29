@@ -30,7 +30,7 @@ figure {
     overflow: hidden;
     width: auto;
     height: 50px;
-
+    transform: translateY(-7px);
 }
 
 figure img {
@@ -62,7 +62,7 @@ nav menu#Slide-Menu {
     right: 0px;
     top: 0px;
     overflow: hidden;
-    background-color: rgb(198, 69, 69);
+    background-color: rgb(168, 69, 69);
 }
 
 nav menu#Slide-Menu div {
@@ -78,6 +78,7 @@ nav menu a {
     display: block;
     text-decoration: none;
     padding: 10px 10px;
+    text-wrap: nowrap;
 }
 
 nav menu a:hover {

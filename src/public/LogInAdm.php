@@ -28,24 +28,20 @@
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
-            <form action="../App/php/scripts/LogUser.php" method="post">
-                <h2>Entrar</h2>
+            <form action="../App/php/scripts/LogAdm.php" method="post">
+                <h2>Entrar Admin</h2>
                 <div class="container-input">
-                    <input type="text" name="email" class="input-group" placeholder="Email">
+                    <input type="text" name="adm_id" class="input-group" placeholder="Codigo do adm">
                 </div>
                 <div class="container-input">
                     <input type="text" name="password" class="input-group" placeholder="Senha">
-                </div>
-                <div>
-                    <label for="StillConnId">Manter-se Conectado</label>
-                    <input type="checkbox" name="StillConn" id="StillConnId">
                 </div>
                 <button type="submit">
                     Entrar
                 </button>
                 <a href="SignUp.php">Registrar-se</a>
-                <a href="">Entra como administrador</a>
-                <a href="EsqueciSenha.php">Esqueci Senha</a>
+                <a href="LogInUser.php">Entra como Usuario</a>
+                <a href="ForgotPass.php">Esqueci Senha</a>
             </form>
             <?php VerifyError() ?>
         </section>

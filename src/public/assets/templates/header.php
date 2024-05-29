@@ -30,3 +30,5 @@
         </div>
     </menu>
 </nav>
+
+<script src="../App/js/Menu.js"></script>

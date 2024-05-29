@@ -1,4 +1,6 @@
 <?php
+
+    use App\Class\Controller\Adm;
     use App\Class\Controller\User;
     use App\Enums\UserAcess\UserAcess;
 
@@ -23,10 +25,22 @@
 
     function VerifyUser(User $user) 
     {
-        if (!$user->ValidateInfo()) {
+        if (!$user->ValidateUserInfo()) {
             return false;
         }
-        if ($user->VerifyIfAlreadyExist()) {
+        if ($user->VerifyIfUserExist()) {
+            return false;
+        }
+        return true;
+    }
+
+
+    function VerifyAdm(Adm $adm)
+    {
+        if (!$adm->ValidateAdmInfo()) {
+            return false;
+        }
+        if (!$adm->VerifyIfAdmExist()) {
             return false;
         }
         return true;
@@ -44,3 +58,9 @@
 
     }
 
+
+    function CreateAdminSession($id)
+    {
+        $_SESSION['user_id'] = $id;
+        $_SESSION['acessType'] = serialize(UserAcess::USER_ADM);
+    }

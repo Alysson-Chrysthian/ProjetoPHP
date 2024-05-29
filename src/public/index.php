@@ -25,11 +25,10 @@
         <?php require_once 'assets/templates/header.php' ?>
     </header>
     <main>
-
+        
     </main>
     <footer>
         <?php require_once 'assets/templates/footer.php' ?>
     </footer>
-    <script src="../App/js/Menu.js"></script>
 </body>
 </html>
