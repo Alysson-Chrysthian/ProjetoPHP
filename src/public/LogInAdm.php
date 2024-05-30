@@ -9,16 +9,25 @@
     $message;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
-        $Adm = new Adm($_POST['adm_id'], $_POST['password']);
+        
+        $AdmInfo = [
+           'id' => $_POST['adm_id'],
+           'pass' => $_POST['password']
+        ];
 
-        $validate = VerifyAdm($Adm);
+        if (IsInfoSet($AdmInfo)) {
+            $Adm = new Adm($AdmInfo);
 
-        if (!$validate) {
-            $message = 'Informações inseridas sao invalidas';
+            $validate = VerifyAdm($Adm);
+
+            if (!$validate) {
+                $message = 'Informações inseridas sao invalidas';
+            } else {
+                $AdmId = $Adm->VerifyIfAdmExist();
+                CreateAdminSession($AdmId);
+            }
         } else {
-            $AdmId = $Adm->VerifyIfAdmExist();
-            CreateAdminSession($AdmId);
+            $message = 'Por favor preencha todos os campos';
         }
     }
 

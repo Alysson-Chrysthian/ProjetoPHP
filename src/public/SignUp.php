@@ -6,22 +6,29 @@
 
     use App\Class\Controller\User;
 
-    $message;
+    $message = '';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $user = new User(
-            $_POST['name'],
-            $_POST['cpf'],
-            $_POST['email'],
-            $_POST['password'],
-            $_POST['nasc']
-        );
 
-        if (!VerifyUser($user)) {
-            $message = 'Usuario ja existe ou informações foram preenchidas incorretamente';
+        $UserInfo = [
+            'name' => $_POST['name'],
+            'cpf' => $_POST['cpf'],
+            'mail' => $_POST['email'],
+            'pass' => $_POST['password'],
+            'nasc' => $_POST['nasc']
+        ];
+
+        if (IsInfoSet($UserInfo)) {
+            $user = new User($UserInfo);
+
+            if (!VerifyUser($user)) {
+                $message = 'Usuario ja existe ou informações foram preenchidas incorretamente';
+            } else {
+                $id = $user->Register();
+                CreateUserSession($id, isset($_POST['StillConn']));
+            }
         } else {
-            $id = $user->Register();
-            CreateUserSession($id, isset($_POST['StillConn']));
+            $message = 'Por favor preencha todas as informações';
         }
     }
 

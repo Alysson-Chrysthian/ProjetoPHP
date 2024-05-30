@@ -14,20 +14,18 @@
         private string $pass;
         private string $nasc;
 
-        public function __construct($name, $cpf, $mail, $pass, $nasc)
+        public function __construct(array $info)
         {   
-            $this->name = $name;
-            $this->cpf = $cpf;
-            $this->mail = $mail;
-            $this->pass = $pass;
-            $this->nasc = $nasc;
+            foreach ($info as $k => $v) {
+                $this->$k = $v;
+            }
         }
 
         //
         public function Register() 
         {
             $user = $this->ConvertToArray();
-            $sql = 'INSERT INTO CLIENTES VALUES (DEFAULT, ?, ?, ?, ?, ?)';
+            $sql = 'INSERT INTO CLIENTES VALUES (DEFAULT, :name, :cpf, :mail, :pass, :nasc)';
 
             try {
                 $conn = new Database();
@@ -56,7 +54,7 @@
             if (!preg_match(self::REGEX_NASC, $this->nasc)) {
                 return false;
             }
-            if (!filter_var($this->mail, FILTER_VALIDATE_EMAIL)) {
+            if (!preg_match(self::REGEX_MAIL, $this->mail)) {
                 return false;
             }
             return true;
@@ -69,13 +67,13 @@
             $cpf = $this->cpf;
             $mail = $this->mail;
 
-            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_NOME = ? OR CLIENTE_CPF = ? OR CLIENTE_EMAIL = ?";
+            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_NOME = :name OR CLIENTE_CPF = :cpf OR CLIENTE_EMAIL = :mail";
 
             try {
                 $conn = new Database();
                 $conn = $conn->connect();
                 $query = $conn->prepare($sql);
-                $query->execute([$name, $cpf, $mail]);
+                $query->execute([':name' => $name, ':cpf' => $cpf, ':mail' => $mail]);
             } catch (\PDOException $e) {
                 print self::ERROR_MESSAGE.$e->getMessage();
                 die();
@@ -90,13 +88,13 @@
             $email = $this->mail;
             $pass = hash('sha256', $this->pass);
 
-            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_EMAIL = ? AND CLIENTE_SENHA = ?";
+            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_EMAIL = :mail AND CLIENTE_SENHA = :pass";
 
             try {
                 $conn = new Database();
                 $conn = $conn->connect();
                 $query = $conn->prepare($sql);
-                $query->execute([$email, $pass]);
+                $query->execute([':mail' => $email, ':pass' => $pass]);
                 $query = $query->fetch(\PDO::FETCH_ASSOC);
                 $conn = null;
             } catch (\PDOException $e) {
@@ -128,7 +126,8 @@
                 if ($k == 'pass') {
                     $v = hash('sha256', $v);
                 }
-                array_push($user, $v);
+                $k = ':'.$k;
+                $user[$k] = $v;
             }
             return $user;
         }

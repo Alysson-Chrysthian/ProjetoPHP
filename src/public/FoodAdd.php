@@ -19,10 +19,8 @@
             $_FILES['PrdImage']
         ];
 
-        $PrdInfoIsSet = IsInfoSet($PdrInfo);
+        if (IsInfoSet($PdrInfo)) {
 
-        if ($PrdInfoIsSet) {
-            
             $isImageValid = IsImage($_FILES['PrdImage']);
 
             if (!$isImageValid) {

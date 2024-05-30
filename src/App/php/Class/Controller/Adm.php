@@ -6,23 +6,24 @@
 
     class Adm extends UserRegex {
 
-        private $adm_id;
-        private $password;
+        private $id;
+        private $pass;
 
         //
-        public function __construct($adm_id, $password)
+        public function __construct(array $admInfo)
         {
-            $this->adm_id = $adm_id;
-            $this->password = $password;
+            foreach ($admInfo as $k => $v) {
+                $this->$k = $v;
+            }
         }
 
         //
         public function ValidateAdmInfo()
         {
-            if (!is_numeric($this->adm_id)) {
+            if (!is_numeric($this->id)) {
                 return false;
             }
-            if (!preg_match(self::REGEX_PASS, $this->password)) {
+            if (!preg_match(self::REGEX_PASS, $this->pass)) {
                 return false;
             }
             return true;
@@ -31,16 +32,16 @@
         //
         public function VerifyIfAdmExist()
         {
-            $id = $this->adm_id;
-            $password = $this->password;
+            $id = $this->id;
+            $pass = $this->pass;
         
-            $sql = "SELECT ADM_ID FROM ADM WHERE ADM_ID = ? AND ADM_SENHA = ?";
+            $sql = "SELECT ADM_ID FROM ADM WHERE ADM_ID = :id AND ADM_SENHA = :pass";
             
             try {
                 $conn = new Database();
                 $conn = $conn->connect();
                 $query = $conn->prepare($sql);
-                $query->execute([$id, $password]);
+                $query->execute([':id' => $id, ':pass' => $pass]);
                 $query = $query->fetch(\PDO::FETCH_ASSOC);
                 $conn = null;
             } catch (\PDOException $e) {

@@ -10,8 +10,17 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
+        $UserInfo = [
+            'name' => '',
+            'cpf' => '',
+            'mail' => $_POST['email'],
+            'pass' => $_POST['password'],
+            'nasc' => ''
+        ];
+
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
-            $user = new User('', '', $_POST['email'], $_POST['password'], '');
+
+            $user = new User($UserInfo);
 
             $UserLog = $user->VerifyIfCanLog();
             
