@@ -3,11 +3,10 @@
 
     use Misterioso013\Tools\CPF;
     use App\Class\Database\Database;
-    use App\Traits\Regex\Regex;
+    use App\Class\Regex\UserRegex;
+    use App\Interfaces\Controller;
 
-    class User {
-
-        use Regex;
+    class User extends UserRegex implements Controller {
 
         private string $name;
         private string $cpf;
@@ -25,9 +24,9 @@
         }
 
         //
-        public function RegisterUser() 
+        public function Register() 
         {
-            $user = $this->ConvertUserToArray();
+            $user = $this->ConvertToArray();
             $sql = 'INSERT INTO CLIENTES VALUES (DEFAULT, ?, ?, ?, ?, ?)';
 
             try {
@@ -43,7 +42,7 @@
         }
 
         //
-        public function ValidateUserInfo()
+        public function ValidateInfo()
         {
             if (!preg_match(self::REGEX_NAME, $this->name)) {
                 return false;
@@ -77,14 +76,12 @@
                 $conn = $conn->connect();
                 $query = $conn->prepare($sql);
                 $query->execute([$name, $cpf, $mail]);
-                $query = $query->fetchAll(\PDO::FETCH_ASSOC);
-                $conn = null;
             } catch (\PDOException $e) {
                 print self::ERROR_MESSAGE.$e->getMessage();
                 die();
             }
             
-            return count($query) > 0;
+            return $query->rowCount() > 0;
         }
 
         //
@@ -123,7 +120,7 @@
         }
 
         //
-        private function ConvertUserToArray()
+        public function ConvertToArray()
         {
             $user = [];
             foreach ($this as $k => $v) {

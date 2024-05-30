@@ -1,13 +1,33 @@
 <?php
+    session_start();
+
     require_once '../vendor/autoload.php';
     require_once '../App/php/Helpers/Helpers.php';
 
-    session_start();
+    use App\Class\Controller\Adm;
+
+    $message;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+        $Adm = new Adm($_POST['adm_id'], $_POST['password']);
+
+        $validate = VerifyAdm($Adm);
+
+        if (!$validate) {
+            $message = 'Informações inseridas sao invalidas';
+        } else {
+            $AdmId = $Adm->VerifyIfAdmExist();
+            CreateAdminSession($AdmId);
+        }
+    }
 
     $Logged = VerifyLogin();
     if ($Logged) {
         header('location: index.php');
+        exit();
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,13 +48,13 @@
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
-            <form action="../App/php/scripts/LogAdm.php" method="post">
+            <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
                 <h2>Entrar Admin</h2>
                 <div class="container-input">
-                    <input type="text" name="adm_id" class="input-group" placeholder="Codigo do adm">
+                    <input type="text" name="adm_id" class="input-group" placeholder="Codigo do adm" required>
                 </div>
                 <div class="container-input">
-                    <input type="text" name="password" class="input-group" placeholder="Senha">
+                    <input type="text" name="password" class="input-group" placeholder="Senha" required>
                 </div>
                 <button type="submit">
                     Entrar
@@ -43,7 +63,7 @@
                 <a href="LogInUser.php">Entra como Usuario</a>
                 <a href="ForgotPass.php">Esqueci Senha</a>
             </form>
-            <?php VerifyError() ?>
+            <?php if (isset($message)) print '<p id="erro">'.$message.'</p>' ?>
         </section>
     </main>
 </body>

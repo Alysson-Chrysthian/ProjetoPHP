@@ -1,8 +1,29 @@
 <?php
+    session_start();
+
     require_once '../vendor/autoload.php';
     require_once '../App/php/Helpers/Helpers.php';
 
-    session_start();
+    use App\Class\Controller\User;
+    
+    $message;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+        if (!empty($_POST['email']) && !empty($_POST['password'])) {
+            $user = new User('', '', $_POST['email'], $_POST['password'], '');
+
+            $UserLog = $user->VerifyIfCanLog();
+            
+            if (!$UserLog) {
+                $message = 'Usuario não existe';
+            } else {
+                CreateUserSession($UserLog, isset($_POST['StillConn']));
+            }
+        } else {
+            $message = 'Por favor insira tudo q se pede';
+        }
+    }
 
     $Logged = VerifyLogin();
     if ($Logged) {
@@ -28,13 +49,13 @@
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
-            <form action="../App/php/scripts/LogUser.php" method="post">
+            <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
                 <h2>Entrar</h2>
                 <div class="container-input">
-                    <input type="text" name="email" class="input-group" placeholder="Email">
+                    <input type="text" name="email" class="input-group" placeholder="Email" required>
                 </div>
                 <div class="container-input">
-                    <input type="text" name="password" class="input-group" placeholder="Senha">
+                    <input type="text" name="password" class="input-group" placeholder="Senha" required>
                 </div>
                 <div>
                     <label for="StillConnId">Manter-se Conectado</label>
@@ -47,7 +68,7 @@
                 <a href="LogInAdm.php">Entra como administrador</a>
                 <a href="ForgotPass.php">Esqueci Senha</a>
             </form>
-            <?php VerifyError() ?>
+            <?php if (isset($message)) print '<p id="erro">'.$message.'</p>' ?>
         </section>
     </main>
 </body>

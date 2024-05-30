@@ -2,11 +2,9 @@
     namespace App\Class\Controller;
 
     use App\Class\Database\Database;
-    use App\Traits\Regex\Regex;
+    use App\Class\Regex\UserRegex;
 
-    class Adm {
-        
-        use Regex;
+    class Adm extends UserRegex {
 
         private $adm_id;
         private $password;

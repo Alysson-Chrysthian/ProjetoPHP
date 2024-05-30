@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+body {
+    background-color: #ff000072;
+}
+
+/*Começando a configurar a div principal*/
+main {
+    padding: 30px;
+}
+
+main section#AddPrd {
+    background-color: #ffffff;
+    box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.274);
+    border-radius: 5px;
+    padding: 30px;
+    max-width: 600px;
+    margin: auto;
+}
+
+main section#AddPrd h1 span {
+    transform: translateY(5px);
+}
+
+/*Configurando o formulario*/
+main section#AddPrd form {
+    margin: 30px 0px 10px 0px;
+}
+
+main section#AddPrd form div {
+    margin: 10px 0px;
+}
+
+main section#AddPrd form label {
+    display: block;
+    margin: 5px 0px;
+    color: rgb(216, 185, 12);
+    font-weight: bold;
+}
+
+main section#AddPrd form input, main section#AddPrd form textarea, main section#AddPrd form select {
+    display: inline-block;
+    width: 100%;
+    padding: 7px;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.384);
+}
+
+main section#AddPrd form textarea {
+    resize: vertical;
+    padding: 0px 7px;
+}
+
+main section#AddPrd button {
+    padding: 10px;
+    background-color: white;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.384);
+    margin: 10px 0px 0px 0px;
+    transition: 0.5s all;
+}
+
+main section#AddPrd button:hover {
+    background-color: rgba(0, 0, 0, 0.154);
+}
+
+main section#AddPrd a {
+    text-decoration: none;
+}
+
+main section#AddPrd a:hover {
+    text-decoration: underline;
+}
+
+/*Configurando o plano de fundo*/
+main section#background {
+    background-image: url(../../images/background/Background-picanha-login.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px; 
+    left: 0px;
+    z-index: -1;
+    filter: blur(2px);
+}

@@ -3,6 +3,7 @@
     use App\Class\Controller\Adm;
     use App\Class\Controller\User;
     use App\Enums\UserAcess\UserAcess;
+    use App\Class\Controller\Food;
 
     function VerifyLogin() 
     {
@@ -14,18 +15,9 @@
     }
 
 
-    function VerifyError() 
-    {
-        if (isset($_SESSION['erro'])) {
-            print('<p id="erro">'.$_SESSION['erro'].'</p>');
-            unset($_SESSION['erro']);
-        }
-    }
-
-
     function VerifyUser(User $user) 
     {
-        if (!$user->ValidateUserInfo()) {
+        if (!$user->ValidateInfo()) {
             return false;
         }
         if ($user->VerifyIfUserExist()) {
@@ -64,3 +56,62 @@
         $_SESSION['user_id'] = $id;
         $_SESSION['acessType'] = serialize(UserAcess::USER_ADM);
     }
+
+
+    function IsInfoSet(array | object $info)
+    {
+        $set = true;
+        foreach ($info as $v) {
+            if (!isset($v) || empty($v)) {
+                $set = false;
+                break;
+            }
+        }
+        return $set;
+    }
+
+
+    function IsImage($file) 
+    {
+        $IsImage = false;
+
+        $acceptFormats = [
+            'jpeg',
+            'jpg',
+            'png',
+        ];
+
+        if (is_uploaded_file($file['tmp_name'])) {
+            $FileFormat = explode('.', $file['name'])[1];
+
+            foreach ($acceptFormats as $v) {
+                if ($v === $FileFormat) {
+                    $IsImage = true;
+                    break;
+                }
+            }
+        }
+
+        return $IsImage;
+    }
+
+    function SaveImageBinaryCode($file)
+    {
+        $format = explode('/', $file['type']);
+        $format = $format[1];
+
+        $dir = time().".$format";
+        $dir = 'assets/images/uploads/'.$dir;
+
+        move_uploaded_file($file['tmp_name'], $dir);
+
+        $IsImage = IsImage($file, $dir);
+
+        $image = fopen($dir, 'r');
+        $imageBinaryCode = fread($image, filesize($dir));
+        
+        unlink($dir);
+        
+        return $imageBinaryCode;
+    }
+

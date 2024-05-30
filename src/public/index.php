@@ -15,12 +15,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Risca Faca Food Corporation</title>
-    <link rel="stylesheet" href="assets/styles/android/style.css">
-    <link rel="stylesheet" href="assets/styles/desktop/style.css" media="screen and (min-width: 620px)">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/styles/android/header.css">
+    <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 750px)">
+    <link rel="shortcut icon" href="assets/images/favicon/favicon-login.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
-<body>
+<body onresize="ChangeMenuStyles()">
     <header>
         <?php require_once 'assets/templates/header.php' ?>
     </header>

@@ -1,13 +1,35 @@
 <?php
+    session_start();
+
     require_once '../vendor/autoload.php';
     require_once '../App/php/Helpers/Helpers.php';
 
-    session_start();
+    use App\Class\Controller\User;
+
+    $message;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $user = new User(
+            $_POST['name'],
+            $_POST['cpf'],
+            $_POST['email'],
+            $_POST['password'],
+            $_POST['nasc']
+        );
+
+        if (!VerifyUser($user)) {
+            $message = 'Usuario ja existe ou informações foram preenchidas incorretamente';
+        } else {
+            $id = $user->Register();
+            CreateUserSession($id, isset($_POST['StillConn']));
+        }
+    }
 
     $Logged = VerifyLogin();
     if ($Logged) {
         header('location: index.php');
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,22 +50,22 @@
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
             </figure>
-            <form action="../App/php/scripts/RegisterUser.php" method="post">
+            <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
                 <h2>Registrar-se</h2>
                 <div class="container-input">
-                    <input type="text" name="name" class="input-group" placeholder="Nome">
+                    <input type="text" name="name" class="input-group" placeholder="Nome" required>
                 </div>
                 <div class="container-input">
-                    <input type="text" name="email" class="input-group" placeholder="Email">
+                    <input type="text" name="email" class="input-group" placeholder="Email" required>
                 </div>
                 <div class="container-input">
-                    <input type="text" name="password" class="input-group" placeholder="Senha">
+                    <input type="text" name="password" class="input-group" placeholder="Senha" required>
                 </div>
                 <div class="container-input">
-                    <input type="text" name="cpf" class="input-group" placeholder="cpf">
+                    <input type="text" name="cpf" class="input-group" placeholder="cpf" required>
                 </div>
                 <div class="container-input">
-                    <input type="date" name="nasc" class="input-group">
+                    <input type="date" name="nasc" class="input-group" required>
                 </div>
                 <div>
                     <label for="StillConnId">Manter-se Conectado</label>
@@ -54,7 +76,7 @@
                 </button>
                 <a href="LogInUser.php">Entrar</a>
             </form>
-            <?php VerifyError() ?>
+            <?php if (isset($message)) print '<p id="erro">'.$message.'</p>' ?>
         </section>
     </main>
 </body>
