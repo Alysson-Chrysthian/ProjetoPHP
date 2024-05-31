@@ -1,57 +1,12 @@
 <?php
     session_start();
+    
+    use App\Enums\UserAcess\UserAcess;
+    use App\Class\Database\Database;
 
     require_once '../vendor/autoload.php';
     require_once '../App/php/Helpers/Helpers.php';
-
-    use App\Class\Controller\Food;
-    use App\Class\Controller\Image;
-    use App\Enums\UserAcess\UserAcess;
-
-    $message;
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-        $PdrInfo = [
-            $_POST['PrdName'],
-            $_POST['PrdDesc'],
-            $_POST['PrdPrice'],
-            $_POST['category'],
-            $_FILES['PrdImage']
-        ];
-
-        if (IsInfoSet($PdrInfo)) {
-
-            $isImageValid = IsImage($_FILES['PrdImage']);
-
-            if (!$isImageValid) {
-                $message = 'A imagem selecionada não é valida';
-            } else {
-                $food = new Food($_POST['PrdName'], $_POST['PrdPrice'], $_POST['PrdDesc'], $_POST['category'], $_SESSION['user_id']);
-                
-                $validFood = $food->ValidateInfo();
-                $foodExist = $food->VerifyIfExist();
-                
-                if ($foodExist) {
-                    $message = 'O produto que você esta tentando cadastrar ja existe';
-                } 
-                elseif (!$validFood) {
-                    $message = 'As informações inseridas nao sao validas';
-                } 
-                else {
-                    $foodId = $food->Register();
-                    $imageContent = SaveImageBinaryCode($_FILES['PrdImage'], 'assets/images/uploads/');
-                    $image = new Image($_FILES['PrdImage']['type'], $foodId, $imageContent);
-                    $image->Register();
-                    $message = 'Produto cadastrado com sucesso';
-                }
-            }
-
-        } else {
-            $message = 'preencha todas as informações adequadamente';
-        }
-
-    }
+    require_once '../App/php/scripts/UpdateProduct.php';
 
     $Logged = VerifyLogin();
     if (!$Logged) {
@@ -61,7 +16,23 @@
 
     if (unserialize($_SESSION['acessType']) != UserAcess::USER_ADM) {
         header('location: index.php');
+        exit();
     }
+
+    if (!isset($_GET['id'])) {
+        header('location: index.php');
+        exit();
+    }
+
+    $sql = "SELECT * FROM COMIDA JOIN IMAGENS ON IMAGENS.COMIDA_ID = COMIDA.COMIDA_ID WHERE COMIDA.COMIDA_ID = :id";
+
+    $conn = new Database();
+    $conn = $conn->connect();
+
+    $query = $conn->prepare($sql);
+    $query->execute([':id' => $_GET['id']]);
+                        
+    $query = $query->fetch(\PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -72,6 +43,7 @@
     <link rel="stylesheet" href="assets/styles/android/header.css">
     <link rel="stylesheet" href="assets/styles/android/footer.css">
     <link rel="stylesheet" href="assets/styles/android/AddFood.css">
+    <link rel="stylesheet" href="assets/styles/android/alterPdr.css">
     <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 750px)">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -88,39 +60,44 @@
                     inventory_2
                 </span>
             </h1>
-            <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+            <form action="<?php print $_SERVER['PHP_SELF'].'?id='.$_GET['id'] ?>" method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                    <label for="PrdId">Codigo do produto</label>
+                    <input type="text" name="PrdId" id="PrdId" required value="<?php print $query['COMIDA_ID'] ?>" readonly>
+                </div>
                 <div class="input-group">
                     <label for="PrdNameId">Nome do produto</label>
-                    <input type="text" name="PrdName" id="PrdNameId" required>
+                    <input type="text" name="PrdName" id="PrdNameId" required value="<?php print $query['COMIDA_NOME'] ?>">
                 </div>
                 <div class="input-group">
                     <label for="PrdDescId">Descrição do produto</label>
-                    <textarea name="PrdDesc" id="PrdDescId" required></textarea>
+                    <textarea name="PrdDesc" id="PrdDescId" required><?php print $query['COMIDA_DESC'] ?></textarea>
                 </div>
                 <div class="input-group">
                     <label for="PrdPriceId">Preço do produto</label>
-                    <input type="text" name="PrdPrice" id="PrdPriceId" required>
+                    <input type="text" name="PrdPrice" id="PrdPriceId" required value="<?php print $query['COMIDA_PRECO'] ?>">
                 </div>
                 <div class="input-group">
                     <label for="categoryId">Categoria do produto</label>
                     <select name="category" id="categoryId" required>
-                        <option value="1">churrasco</option>
-                        <option value="2">bebida</option>
+                        <option value="1" <?php print $query['COMIDA_CAT'] == 'churrascaria' ? 'selected' : '' ?>>churrasco</option>
+                        <option value="2" <?php print print $query['COMIDA_CAT'] == 'bebida' ? 'selected' : '' ?>>bebida</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label for="PrdImageId">Foto do produto</label>
-                    <input type="file" name="PrdImage" id="PrdImageId" accept="image/*" required>
+                    <img src="../App/php/scripts/ShowImage.php?id=<?php print $query['IMAGEM_ID'] ?>" alt="Foto do produto" id="imgPdr">
+                    <input type="file" name="PrdImage" id="PrdImageId" accept="image/*">
                 </div>
                 <div>
                     <button type="submit">
-                        Adicionar Produto
+                        Alterar produto
                     </button>
                 </div>
                 <a href="FoodList.php">Ver lista de produtos cadastrados</a>
             </form>
             <p id="erro">
-                <?php if (isset($message)) print $message ?>
+                <?php print isset($message) ? $message : '' ?>
             </p> 
         </section>
     </main>

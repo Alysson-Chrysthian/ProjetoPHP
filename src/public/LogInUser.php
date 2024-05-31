@@ -11,14 +11,14 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $UserInfo = [
-            'name' => '',
+            'name' => $_POST['user'],
             'cpf' => '',
-            'mail' => $_POST['email'],
+            'mail' => $_POST['user'],
             'pass' => $_POST['password'],
             'nasc' => ''
         ];
 
-        if (!empty($_POST['email']) && !empty($_POST['password'])) {
+        if (!empty($_POST['user']) && !empty($_POST['password'])) {
 
             $user = new User($UserInfo);
 
@@ -52,8 +52,6 @@
 <body>
     <main>
         <h1 id="nome-empresa">Risca faca</h1>
-        <section id="background">
-        </section>
         <section id="login">
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">
@@ -61,7 +59,7 @@
             <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
                 <h2>Entrar</h2>
                 <div class="container-input">
-                    <input type="text" name="email" class="input-group" placeholder="Email" required>
+                    <input type="text" name="user" class="input-group" placeholder="Email ou Usuario" required>
                 </div>
                 <div class="container-input">
                     <input type="text" name="password" class="input-group" placeholder="Senha" required>

@@ -2,11 +2,20 @@
 
 body {
     background-color: #ff000072;
+    overflow-x: hidden;
+    background-image: url(../../images/background/Background-picanha-login.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left center;
+    display: flex;
+    flex-direction: column;
 }
 
 /*Começando a configurar a div principal*/
 main {
     padding: 30px;
+    flex-grow: 1;
 }
 
 main section#AddPrd {
@@ -16,6 +25,7 @@ main section#AddPrd {
     padding: 30px;
     max-width: 600px;
     margin: auto;
+    align-self: first baseline;
 }
 
 main section#AddPrd h1 span {
@@ -70,19 +80,4 @@ main section#AddPrd a {
 
 main section#AddPrd a:hover {
     text-decoration: underline;
-}
-
-/*Configurando o plano de fundo*/
-main section#background {
-    background-image: url(../../images/background/Background-picanha-login.jpeg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    top: 0px; 
-    left: 0px;
-    z-index: -1;
-    filter: blur(2px);
 }

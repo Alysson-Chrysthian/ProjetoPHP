@@ -2,7 +2,7 @@
     use App\Enums\UserAcess\UserAcess;
 ?>
 <figure>
-    <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo Da Risca Faca">
+    <a href="index.php"><img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo Da Risca Faca"></a>
 </figure>
 <nav>
     <span class="material-symbols-outlined" id="menuButton" onclick="ShowMenu()">
@@ -11,7 +11,7 @@
     <menu id="Slide-Menu">
         
         <div id="form">
-            <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
+            <form action="index.php" method="post">
                 <input type="text" name="pesq" id="pesqId" placeholder="pesquisar comida">
                 <button type="submit">
                     <span class="material-symbols-outlined" id="SearchIcon">

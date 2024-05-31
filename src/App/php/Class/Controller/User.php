@@ -87,14 +87,15 @@
         {
             $email = $this->mail;
             $pass = hash('sha256', $this->pass);
+            $name = $this->name;
 
-            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_EMAIL = :mail AND CLIENTE_SENHA = :pass";
+            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_EMAIL = :mail OR CLIENTE_NOME = :name AND CLIENTE_SENHA = :pass";
 
             try {
                 $conn = new Database();
                 $conn = $conn->connect();
                 $query = $conn->prepare($sql);
-                $query->execute([':mail' => $email, ':pass' => $pass]);
+                $query->execute([':mail' => $email, ':name' => $name, ':pass' => $pass]);
                 $query = $query->fetch(\PDO::FETCH_ASSOC);
                 $conn = null;
             } catch (\PDOException $e) {

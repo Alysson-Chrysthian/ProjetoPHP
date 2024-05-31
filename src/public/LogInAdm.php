@@ -51,8 +51,6 @@
 <body>
     <main>
         <h1 id="nome-empresa">Risca faca</h1>
-        <section id="background">
-        </section>
         <section id="login">
             <figure>
                 <img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo da risca faca">

@@ -4,6 +4,7 @@
     use App\Class\Database\Database;
     use App\Class\Regex\ProdRegex;
     use App\Interfaces\Controller;
+use PDOException;
 
     class Food extends ProdRegex implements Controller {
 
@@ -75,6 +76,41 @@
                 array_push($food, $v);
             }
             return $food;
+        }
+
+
+        //
+        public function VerifyIfExist()
+        {
+            $sql = "SELECT * FROM COMIDA WHERE COMIDA_NOME = :name";
+
+            try {
+                $conn = new Database();
+                $conn = $conn->connect();
+                $query = $conn->prepare($sql);
+                $query->execute([':name' => $this->PdrName]);
+                $query = $query->rowCount();
+            } catch (\PDOException $e) {
+                print self::ERROR_MESSAGE.$e->getMessage();
+            }
+            return $query > 0;
+        }
+
+        //
+        public static function DeleteFood($food) 
+        {
+            $sql = "DELETE FROM COMIDA WHERE COMIDA_ID = :id";
+
+            try {
+                $conn = new Database();
+                $conn = $conn->connect();
+                $query = $conn->prepare($sql);
+                $query->execute([':id' => $food]);
+                $conn = null;
+            } catch (\PDOException $e) {
+                print 'Não foi possivel excluir o produto selecionado'.$e->getMessage();
+                exit();
+            }
         }
 
     }

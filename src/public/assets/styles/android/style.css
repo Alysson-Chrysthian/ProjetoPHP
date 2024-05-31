@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    justify-self: center;
+    align-self: center;
+}
+
+section#products {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section#products div.product {
+    border: 1px solid black;
+    margin: 15px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 220px;
+}
+
+section#products div.product div.Pdrinfo {
+    padding: 10px 5px;   
+}
+
+section#products p.PdrName {
+    color: goldenrod;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+section#products p.PdrPrice {
+    color: red;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: right;
+}
+
+section#products p.PdrPrice::after, p.PdrPrice span {
+    color: red;
+    font-weight: bold;
+    font-size: 0.5em;
+    text-align: right;
+    content: 'R$';
+}
+
+section#products figure {
+    height: 50%;
+    overflow: hidden;
+}
+
+section#products figure img {
+    width: 220px;
+    object-fit: cover;
+    object-position: center center;
+}
+
+section#products div.product a.BuyProduct {
+    display: inline-block;
+    padding: 10px;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+}
+
+section#products div.PdrPriceAndDesc {
+    display: flex;
+    justify-content: space-between;
+}
+
+section#products div.product a.BuyProduct:hover {
+    text-decoration: underline;
+}
+
+section#background {
+    display: none;
+}

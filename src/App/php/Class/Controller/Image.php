@@ -36,11 +36,31 @@
         public function ConvertToArray()
         {
             $food = [];
-            foreach ($this as $v) {
-                $v = addslashes(htmlspecialchars(trim($v)));
+            foreach ($this as $k => $v) {
+                if ($k != 'imageContent') {
+                    $v = htmlspecialchars($v);
+                }
+                $v = addslashes(trim($v));
                 array_push($food, $v);
             }
             return $food;
+        }
+
+        //
+        public static function DeleteImage($image) 
+        {
+            $sql = "DELETE FROM IMAGENS WHERE COMIDA_ID = :id";
+
+            try {
+                $conn = new Database();
+                $conn = $conn->connect();
+                $query = $conn->prepare($sql);
+                $query->execute([':id' => $image]);
+                $conn = null;
+            } catch (\PDOException $e) {
+                print('Não foi possivel excluir a imagem'.$e->getMessage());
+                exit();
+            }
         }
 
     }

@@ -3,7 +3,7 @@
     use App\Class\Controller\Adm;
     use App\Class\Controller\User;
     use App\Enums\UserAcess\UserAcess;
-    use App\Class\Controller\Food;
+    use App\Class\Database\Database;
 
     function VerifyLogin() 
     {
@@ -95,23 +95,51 @@
         return $IsImage;
     }
 
-    function SaveImageBinaryCode($file)
+
+    function SaveImageBinaryCode($file, $path)
     {
         $format = explode('/', $file['type']);
         $format = $format[1];
 
         $dir = time().".$format";
-        $dir = 'assets/images/uploads/'.$dir;
+        $dir = $path.$dir;
 
         move_uploaded_file($file['tmp_name'], $dir);
 
-        $IsImage = IsImage($file, $dir);
-
-        $image = fopen($dir, 'r');
-        $imageBinaryCode = fread($image, filesize($dir));
+        $imageBinaryCode = file_get_contents($dir);
         
         unlink($dir);
         
         return $imageBinaryCode;
     }
 
+
+    function SelectAllProducts($search = '')
+    {
+        $sql = "SELECT * FROM COMIDA JOIN IMAGENS ON IMAGENS.COMIDA_ID = COMIDA.COMIDA_ID WHERE COMIDA.COMIDA_NOME LIKE '%$search%' OR COMIDA.COMIDA_DESC LIKE '%$search%'";
+
+        try {
+            $conn = new Database();
+            $conn = $conn->connect();
+
+            $query = $conn->prepare($sql);
+            $query->execute();
+            $query = $query->fetchAll(\PDO::FETCH_ASSOC);
+        
+            $conn = null;
+        } catch (\PDOException $e) {
+            print $e->getMessage();
+        }
+
+        return $query;
+    }
+
+
+    function FormatPrice($price) {
+        if (count(explode('.', $price)) === 1 ) {
+            $price .= '.00';
+        } elseif (strlen(explode('.', $price)[1]) === 1) {
+            $price .= '0';
+        }
+        return $price;
+    }

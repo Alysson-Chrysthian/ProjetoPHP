@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: baseline;
+    width: 100%;
+    padding: 0pc 20px;
+}
+
+main section {
+    padding: 15px;
+    text-align: center;
+    overflow-x: auto;
+}
+
+td > img {
+    width: 100px;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+table {
+    border-collapse: collapse;
+    overflow: scroll;
+    margin: auto;
+}
+
+a > img {
+    width: 70px;
+}
+
+td.botoes {
+    text-wrap: wrap;
+    font-weight: bold;
+}

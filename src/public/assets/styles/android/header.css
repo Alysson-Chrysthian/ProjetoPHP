@@ -8,7 +8,6 @@
 }
 
 body, html {
-    width: 100vw;
     height: 100vh;
 }
 
@@ -28,14 +27,14 @@ header {
     z-index: 1;
 }
 
-figure {
+header figure {
     overflow: hidden;
     width: auto;
     height: 50px;
     transform: translateY(-7px);
 }
 
-figure img {
+header figure img {
     width: 80px;
 }
 
