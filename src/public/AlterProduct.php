@@ -105,6 +105,5 @@
         <?php require_once 'assets/templates/footer.php' ?>
     </footer>
     <script src="../App/js/CheckFileSize.js"></script>
-    <script src="../App/js/Menu.js"></script>
 </body>
 </html>

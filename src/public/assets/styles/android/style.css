@@ -68,12 +68,15 @@ section#products figure img {
     object-position: center center;
 }
 
-section#products div.product a.BuyProduct {
+section#products div.product button.BuyProduct {
     display: inline-block;
     padding: 10px;
     background-color: red;
     color: white;
     text-decoration: none;
+    border: none;
+    font-size: 1.05em;
+    cursor: pointer;
 }
 
 section#products div.PdrPriceAndDesc {
@@ -81,10 +84,44 @@ section#products div.PdrPriceAndDesc {
     justify-content: space-between;
 }
 
-section#products div.product a.BuyProduct:hover {
+section#products div.product button.BuyProduct:hover {
     text-decoration: underline;
 }
 
 section#background {
-    display: none;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 0.7fr;
+    width: 100%;
+    height: 60vh;
+    background-image: url(../../images/background/Background-picanha-index.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+section#background div {
+    background-color: rgba(0, 0, 0, 0.308);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(5px, 10px);
+    padding: 7px;
+}
+
+section#background div h1 {
+    color: white;
+    font-size: 3.2em;
+    text-align: center;
+}
+
+section#background div p {
+    color: goldenrod;
+    font-size: 1.2em;
+    text-align: center;
 }

@@ -143,3 +143,19 @@
         }
         return $price;
     }
+
+
+    function SelectEspecificProduct($id)
+    {
+        $sql = "SELECT * FROM COMIDA WHERE COMIDA_ID = ?";
+        
+        $conn = new Database();
+        $conn = $conn->connect();
+        
+        $query = $conn->prepare($sql);
+        $query->execute([$id]);
+
+        $query = $query->fetch(\PDO::FETCH_ASSOC);
+        
+        return $query;
+    }

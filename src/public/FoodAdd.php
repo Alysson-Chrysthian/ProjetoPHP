@@ -8,6 +8,16 @@
     use App\Class\Controller\Image;
     use App\Enums\UserAcess\UserAcess;
 
+    $Logged = VerifyLogin();
+    if (!$Logged) {
+        header('location: SignUp.php');
+        exit();
+    }
+
+    if (unserialize($_SESSION['acessType']) != UserAcess::USER_ADM) {
+        header('location: index.php');
+    }
+
     $message;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -53,15 +63,6 @@
 
     }
 
-    $Logged = VerifyLogin();
-    if (!$Logged) {
-        header('location: SignUp.php');
-        exit();
-    }
-
-    if (unserialize($_SESSION['acessType']) != UserAcess::USER_ADM) {
-        header('location: index.php');
-    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -128,6 +129,5 @@
         <?php require_once 'assets/templates/footer.php' ?>
     </footer>
     <script src="../App/js/CheckFileSize.js"></script>
-    <script src="../App/js/Menu.js"></script>
 </body>
 </html>

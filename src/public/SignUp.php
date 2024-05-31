@@ -35,6 +35,7 @@
     $Logged = VerifyLogin();
     if ($Logged) {
         header('location: index.php');
+        exit();
     }
 
 ?>

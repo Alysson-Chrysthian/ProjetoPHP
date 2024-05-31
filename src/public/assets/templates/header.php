@@ -11,7 +11,7 @@
     <menu id="Slide-Menu">
         
         <div id="form">
-            <form action="index.php" method="post">
+            <form action="index.php" method="get">
                 <input type="text" name="pesq" id="pesqId" placeholder="pesquisar comida">
                 <button type="submit">
                     <span class="material-symbols-outlined" id="SearchIcon">

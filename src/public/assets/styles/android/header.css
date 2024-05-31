@@ -80,6 +80,7 @@ nav menu a {
     text-decoration: none;
     padding: 10px 10px;
     text-wrap: nowrap;
+    font-weight: bold;
 }
 
 nav menu a:hover {
