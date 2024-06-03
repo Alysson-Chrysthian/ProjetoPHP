@@ -73,7 +73,7 @@
     <link rel="stylesheet" href="assets/styles/android/header.css">
     <link rel="stylesheet" href="assets/styles/android/footer.css">
     <link rel="stylesheet" href="assets/styles/android/AddFood.css">
-    <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 750px)">
+    <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 865px)">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>

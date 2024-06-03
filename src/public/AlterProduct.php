@@ -32,7 +32,7 @@
     $query = $conn->prepare($sql);
     $query->execute([':id' => $_GET['id']]);
                         
-    $query = $query->fetch(\PDO::FETCH_ASSOC);
+    $result = $query->fetch(\PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -44,7 +44,7 @@
     <link rel="stylesheet" href="assets/styles/android/footer.css">
     <link rel="stylesheet" href="assets/styles/android/AddFood.css">
     <link rel="stylesheet" href="assets/styles/android/alterPdr.css">
-    <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 750px)">
+    <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 865px)">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
@@ -55,7 +55,7 @@
     <main>
         <section id="AddPrd">
             <h1>
-                Novo produto
+                Alterar produto
                 <span class="material-symbols-outlined">
                     inventory_2
                 </span>
@@ -63,30 +63,30 @@
             <form action="<?php print $_SERVER['PHP_SELF'].'?id='.$_GET['id'] ?>" method="post" enctype="multipart/form-data">
                 <div class="input-group">
                     <label for="PrdId">Codigo do produto</label>
-                    <input type="text" name="PrdId" id="PrdId" required value="<?php print $query['COMIDA_ID'] ?>" readonly>
+                    <input type="text" name="PrdId" id="PrdId" required value="<?php print $result['COMIDA_ID'] ?>" readonly>
                 </div>
                 <div class="input-group">
                     <label for="PrdNameId">Nome do produto</label>
-                    <input type="text" name="PrdName" id="PrdNameId" required value="<?php print $query['COMIDA_NOME'] ?>">
+                    <input type="text" name="PrdName" id="PrdNameId" required value="<?php print $result['COMIDA_NOME'] ?>">
                 </div>
                 <div class="input-group">
                     <label for="PrdDescId">Descrição do produto</label>
-                    <textarea name="PrdDesc" id="PrdDescId" required><?php print $query['COMIDA_DESC'] ?></textarea>
+                    <textarea name="PrdDesc" id="PrdDescId" required><?php print $result['COMIDA_DESC'] ?></textarea>
                 </div>
                 <div class="input-group">
                     <label for="PrdPriceId">Preço do produto</label>
-                    <input type="text" name="PrdPrice" id="PrdPriceId" required value="<?php print $query['COMIDA_PRECO'] ?>">
+                    <input type="text" name="PrdPrice" id="PrdPriceId" required value="<?php print $result['COMIDA_PRECO'] ?>">
                 </div>
                 <div class="input-group">
                     <label for="categoryId">Categoria do produto</label>
                     <select name="category" id="categoryId" required>
-                        <option value="1" <?php print $query['COMIDA_CAT'] == 'churrascaria' ? 'selected' : '' ?>>churrasco</option>
-                        <option value="2" <?php print print $query['COMIDA_CAT'] == 'bebida' ? 'selected' : '' ?>>bebida</option>
+                        <option value="1" <?php print $result['COMIDA_CAT'] == 'churrascaria' ? 'selected' : '' ?>>churrasco</option>
+                        <option value="2" <?php print print $result['COMIDA_CAT'] == 'bebida' ? 'selected' : '' ?>>bebida</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label for="PrdImageId">Foto do produto</label>
-                    <img src="../App/php/scripts/ShowImage.php?id=<?php print $query['IMAGEM_ID'] ?>" alt="Foto do produto" id="imgPdr">
+                    <img src="../App/php/scripts/ShowImage.php?id=<?php print $result['IMAGEM_ID'] ?>" alt="Foto do produto" id="imgPdr">
                     <input type="file" name="PrdImage" id="PrdImageId" accept="image/*">
                 </div>
                 <div>

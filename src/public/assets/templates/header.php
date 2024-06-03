@@ -1,5 +1,19 @@
 <?php
     use App\Enums\UserAcess\UserAcess;
+    use App\Class\Database\Database;
+
+    $sql = "SELECT * FROM clientes WHERE CLIENTE_ID = :id";
+
+    try {
+        $conn = new Database();
+        $conn = $conn->connect();
+        $query = $conn->prepare($sql);
+        $query->execute([':id' => $_SESSION['user_id']]);
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        header($_SERVER['SERVER_PROTOCOL'].' 403');
+        exit();
+    }
 ?>
 <figure>
     <a href="index.php"><img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo Da Risca Faca"></a>
@@ -27,6 +41,7 @@
                         print '<a href="FoodAdd.php">Cadastrar Produto</a>';
                     }
                 ?>
+                <a href="UserProfile.php"><?php echo $user['CLIENTE_NOME'] ?></a>
                 <a href="../App/php/scripts/Exit.php">Sair</a>
             </div>
         </div>

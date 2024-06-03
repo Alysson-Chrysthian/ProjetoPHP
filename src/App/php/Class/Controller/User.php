@@ -89,7 +89,7 @@
             $pass = hash('sha256', $this->pass);
             $name = $this->name;
 
-            $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_EMAIL = :mail OR CLIENTE_NOME = :name AND CLIENTE_SENHA = :pass";
+            $sql = "SELECT * FROM CLIENTES WHERE (CLIENTE_EMAIL = :mail OR CLIENTE_NOME = :name) AND CLIENTE_SENHA = :pass";
 
             try {
                 $conn = new Database();

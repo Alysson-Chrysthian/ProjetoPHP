@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+main {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: visible;
+    overflow-x: hidden;
+}
+
+section#RealizedBuys {
+    width: 100vw;
+    overflow-x: auto;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+thead {
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    background-color: white;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    position: relative;
+}
+
+section#UserInfo {
+    overflow: visible;
+    margin: 0px 0px 10px 0px;
+}
+
+section#UserInfo fieldset, section#UserInfo form {
+    padding: 10px 20px 20px 20px;
+    display: block;
+}
+
+section#UserInfo fieldset legend {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+section#UserInfo label, section#UserInfo input {
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+}
+
+section#UserInfo input {
+    padding: 7px;
+    width: 100%;
+    outline: none;
+}
+
+section#UserInfo button {
+    padding: 10px;
+    background-color: white;
+    outline: none;
+    border: 1px solid black;
+    margin: 5px 0px;
+}
+
+section#UserInfo button:hover {
+    background-color: rgba(211, 211, 211, 0.274);
+}
+
+section#UserInfo a {
+    display: block;
+    color: black;
+    margin: 5px 0px;
+}

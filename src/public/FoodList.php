@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="assets/styles/android/footer.css">
     <link rel="stylesheet" href="assets/styles/android/style.css">
     <link rel="stylesheet" href="assets/styles/android/ProductList.css">
-    <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 750px)">
+    <link rel="stylesheet" href="assets/styles/desktop/header.css" media="screen and (min-width: 865px)">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
@@ -91,9 +91,9 @@
                             <?php
                             if ($_SESSION['user_id'] == $pdr['ADM_ID']) {
                             ?>
-                            <a href="../App/php/scripts/DeleteProducts.php?id=<?php print $pdr['COMIDA_ID'] ?>">
-                                <img src="assets/images/figures/excluir.png" alt="excluir">
-                            </a>
+                                <a href="../App/php/scripts/DeleteProducts.php?id=<?php print $pdr['COMIDA_ID'] ?>">
+                                    <img src="assets/images/figures/excluir.png" alt="excluir">
+                                </a>
                             <?php
                             } else {
                             ?>

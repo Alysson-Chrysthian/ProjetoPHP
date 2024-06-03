@@ -8,8 +8,10 @@ section.BuyMenu {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 500px;
-    width: 500px;
+    height: auto;
+    width: 50%;
+    min-width: 300px;
+    max-width: 500px;
     border: 2px solid rgba(0, 0, 0, 0.253);
     padding: 20px;
 }
@@ -36,7 +38,7 @@ section.BuyMenu label {
 
 section.BuyMenu input, section.BuyMenu select {
     width: 100%;
-    padding: 10px 5px;
+    padding: 7px 5px;
     outline: none;
 }
 
