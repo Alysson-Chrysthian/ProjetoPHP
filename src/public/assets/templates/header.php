@@ -37,11 +37,15 @@
                 <a href="index.php">Inicio</a>
                 <a href="About.php">Sobre</a>
                 <?php
-                    if (unserialize($_SESSION['acessType']) == UserAcess::USER_ADM) {
-                        print '<a href="FoodAdd.php">Cadastrar Produto</a>';
-                    }
+                if (unserialize($_SESSION['acessType']) == UserAcess::USER_ADM) {
+                    print '<a href="FoodAdd.php">Cadastrar Produto</a>';
+                } 
+                else {
                 ?>
-                <a href="UserProfile.php"><?php echo $user['CLIENTE_NOME'] ?></a>
+                    <a href="UserProfile.php"><?php echo $user['CLIENTE_NOME'] ?></a>
+                <?php 
+                }   
+                ?>
                 <a href="../App/php/scripts/Exit.php">Sair</a>
             </div>
         </div>

@@ -5,8 +5,9 @@
     require_once '../helpers/helpers.php';
 
     use App\Class\Database\Database;
+    use App\Enums\UserAcess\UserAcess;
 
-    if (isset($_GET['PdrId'])) {
+    if (isset($_GET['PdrId']) && unserialize($_SESSION['acessType']) == UserAcess::USER_NORMAL) {
         $sql = "SELECT COMIDA_PRECO FROM COMIDA WHERE COMIDA_ID = :id";
 
         $conn = new Database();

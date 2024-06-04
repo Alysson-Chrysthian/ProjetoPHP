@@ -40,12 +40,12 @@
         }
 
         //
-        public function ValidateInfo()
+        public function ValidateInfo($VerifyPass = true)
         {
             if (!preg_match(self::REGEX_NAME, $this->name)) {
                 return false;
             }
-            if (!preg_match(self::REGEX_PASS, $this->pass)) {
+            if ($VerifyPass && !preg_match(self::REGEX_PASS, $this->pass)) {
                 return false;
             }
             if (!$this->ValidateCpf()) {

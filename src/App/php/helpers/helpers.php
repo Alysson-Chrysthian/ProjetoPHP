@@ -184,9 +184,9 @@
         $query = $conn->prepare($sql);
         $query->execute([$id]);
 
-        $query = $query->fetch(\PDO::FETCH_ASSOC);
+        $result = $query->fetch(\PDO::FETCH_ASSOC);
         
-        return $query;
+        return $result;
     }
 
 
@@ -200,7 +200,7 @@
         $query = $conn->prepare($sql);
         $query->execute([':id' => $id]);
 
-        $query = $query->fetch(PDO::FETCH_ASSOC);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        return $query;
+        return $result;
     }

@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 main {
     margin-top: 20px;
     display: flex;
@@ -8,15 +14,17 @@ main {
     flex-direction: column;
     overflow: visible;
     overflow-x: hidden;
+    flex-grow: 1;
 }
 
 section#RealizedBuys {
     width: 100vw;
+    margin-bottom: 10px;
     overflow-x: auto;
 }
 
-td, th {
-    border: 1px solid black;
+td, th, tr {
+    outline: 1px solid black;
     padding: 10px;
     text-align: center;
     text-wrap: nowrap;
@@ -24,12 +32,13 @@ td, th {
 
 thead {
     position: sticky;
-    top: 0px;
+    top: -1px;
     left: 0px;
     background-color: white;
 }
 
 table {
+    outline: 1px solid black;
     border-collapse: collapse;
     margin: auto;
     position: relative;
@@ -70,12 +79,51 @@ section#UserInfo button {
     margin: 5px 0px;
 }
 
+section#UserInfo button[type="submit"] {
+    margin-top: 5px;
+}
+
 section#UserInfo button:hover {
     background-color: rgba(211, 211, 211, 0.274);
 }
 
-section#UserInfo a {
+section#UserInfo a, section#UserInfo button {
     display: block;
     color: black;
     margin: 5px 0px;
+}
+
+section#UserInfo button#DeleteAccount, div#PopUpMessage button {
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+div#PopUpMessage {
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    outline: 2px solid black;
+    display: none;
+}
+
+div#PopUpMessage button, div#PopUpMessage a {
+    text-decoration: none;
+    margin-top: 7px;
+}
+
+div#PopUpMessage button:hover, div#PopUpMessage a:hover {
+    text-decoration: underline;
+}
+
+div#erro {
+    color: red;
 }

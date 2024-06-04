@@ -1,11 +1,14 @@
 <?php
-    require_once '../vendor/autoload.php';
-    require_once '../App/php/Helpers/Helpers.php';
+    use App\Enums\UserAcess\UserAcess;
 
     session_start();
 
+    require_once '../vendor/autoload.php';
+    require_once '../App/php/Helpers/Helpers.php';
+    require_once '../App/php/scripts/UpdateUser.php';
+
     $Logged = VerifyLogin();
-    if (!$Logged) {
+    if (!$Logged || unserialize($_SESSION['acessType']) == UserAcess::USER_ADM) {
         header('location: SignUp.php');
         exit();
     }
@@ -32,6 +35,50 @@
         <?php require_once 'assets/templates/header.php' ?>
     </header>
     <main>
+    <section id="UserInfo">
+            <form action="<?php print $_SERVER['PHP_SELF'] ?>" method="post">
+                <fieldset>
+                    <legend>Informações do usuario</legend>
+                    <div>
+                        <label for="userId">Codigo</label>
+                        <input type="text" name="userId" id="userId" value="<?php print $user['CLIENTE_ID'] ?>" readonly required>
+                    </div>
+                    <div>
+                        <label for="userNameId">Nome</label>
+                        <input type="text" name="userName" id="userNameId" value="<?php print $user['CLIENTE_NOME'] ?>" required>
+                    </div>
+                    <div>
+                        <label for="userMailId">Email</label>
+                        <input type="text" name="userMail" id="userMailId" value="<?php print $user['CLIENTE_EMAIL'] ?>" required>
+                    </div>
+                    <div>
+                        <label for="userCpfId">Cpf</label>
+                        <input type="text" name="userCpf" id="userCpfId" value="<?php print $user['CLIENTE_CPF'] ?>" required>
+                    </div>
+                    <div>
+                        <label for="userNascId">Data de nascimento</label>
+                        <input type="date" name="userNasc" id="userNascId" value="<?php print $user['CLIENTE_NASC'] ?>" required>
+                    </div>
+                    <div>
+                        <button type="submit">
+                            Alterar dados
+                        </button>
+                    </div>
+                    <div>
+                        <a href="#">Mudar Senha</a>
+                        <button type="button" id="DeleteAccount" onclick="ShowPopUp('PopUpMessage')">Deletar Conta</button>
+                    </div>
+                    <div id="erro">
+                        <?php if (isset($message)) print $message ?>
+                    </div>
+                </fieldset>
+            </form>
+            <div id="PopUpMessage">
+                <p>Tem certeza de que deseja deletar sua conta?</p>
+                <button type="button" onclick="ClosePopUp('PopUpMessage')">Não</button>
+                <a href="DeleteAccount.php">Sim</a>
+            </div>
+        </section>
         <h1>Compras Realizadas</h1>
         <section id="RealizedBuys">
             <table>
@@ -62,45 +109,10 @@
                 </tbody>
             </table>
         </section>
-        <section id="UserInfo">
-            <form action="" method="post">
-                <fieldset>
-                    <legend>Informações do usuario</legend>
-                    <div>
-                        <label for="userId">Codigo</label>
-                        <input type="text" name="userId" id="userId" value="<?php print $user['CLIENTE_ID'] ?>" readonly required>
-                    </div>
-                    <div>
-                        <label for="userNameId">Nome</label>
-                        <input type="text" name="userName" id="userNameId" value="<?php print $user['CLIENTE_NOME'] ?>" required>
-                    </div>
-                    <div>
-                        <label for="userMailId">Email</label>
-                        <input type="text" name="userMail" id="userMailId" value="<?php print $user['CLIENTE_EMAIL'] ?>" required>
-                    </div>
-                    <div>
-                        <label for="userCpfId">Cpf</label>
-                        <input type="text" name="userCpf" id="userCpfId" value="<?php print $user['CLIENTE_CPF'] ?>" required>
-                    </div>
-                    <div>
-                        <label for="userNascId">Data de nascimento</label>
-                        <input type="text" name="userNasc" id="userNascId" value="<?php print $user['CLIENTE_NASC'] ?>" required>
-                    </div>
-                    <div>
-                        <button type="submit">
-                            Alterar dados
-                        </button>
-                    </div>
-                    <div>
-                        <a href="#">Mudar Senha</a>
-                        <a href="#">Deletar Conta</a>
-                    </div>
-                </fieldset>
-            </form>
-        </section>
     </main>
     <footer>
         <?php require_once 'assets/templates/footer.php' ?>
     </footer>
+    <script src="../App/js/ShowPopUp.js"></script>
 </body>
 </html>
