@@ -6,7 +6,7 @@
     use App\Interfaces\Controller;
 use PDOException;
 
-    class Food extends ProdRegex implements Controller {
+    class Food extends ProdRegex {
 
         private $PdrName;
         private $PdrPrice;

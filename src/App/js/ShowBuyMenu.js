@@ -1,11 +1,11 @@
-function ShowBuyMenu(id)
+function ShowBuySquare() 
 {
-    let MenuDeCompra = document.getElementById('buyMenu-'+id);
-    MenuDeCompra.style.display = 'block';
+    let BuySquare = document.getElementById('BuySquare');
+    BuySquare.style.display = 'flex';
 }
 
-function CloseBuyMenu(id)
+function CloseBuySquare()
 {
-    let MenuDeCompra = document.getElementById('buyMenu-'+id);
-    MenuDeCompra.style.display = 'none';
+    let BuySquare = document.getElementById('BuySquare');
+    BuySquare.style.display = 'none';
 }

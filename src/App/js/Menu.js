@@ -35,7 +35,7 @@ function ChangeMenuStyles() {
     MenuButton.style.color = 'rgb(0, 0, 0)';
     MenuButton.innerHTML = 'Menu';
 
-    if (innerWidth >= 750) {
+    if (innerWidth >= 865) {
         Menu.style.width = '100%';
         Menu.style.transition = 'none';
     } else {

@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+h1 {
+    margin-bottom: 15px;
+}
+
+form {
+    transform: translate(0px, 0px);
+}
+
+label, h1 {
+    color: white;
+}
+
+input {
+    padding: 7px;
+    width: 100%;
+    outline: none;
+}
+
+section#login {
+    background-color: rgba(0, 0, 0, 0.334);
+}
+
+label span {
+    font-weight: bold;
+}

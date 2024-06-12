@@ -6,7 +6,7 @@
     use App\Class\Regex\UserRegex;
     use App\Interfaces\Controller;
 
-    class User extends UserRegex implements Controller {
+    class User extends UserRegex {
 
         private string $name;
         private string $cpf;
@@ -40,13 +40,15 @@
         }
 
         //
-        public function ValidateInfo()
+        public function ValidateInfo(bool $VerifyPass = true)
         {
             if (!preg_match(self::REGEX_NAME, $this->name)) {
                 return false;
             }
-            if (!preg_match(self::REGEX_PASS, $this->pass)) {
-                return false;
+            if ($VerifyPass) {
+                if (!preg_match(self::REGEX_PASS, $this->pass)) {
+                    return false;
+                }
             }
             if (!$this->ValidateCpf()) {
                 return false;

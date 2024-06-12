@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: visible;
+    overflow-x: hidden;
+    flex-grow: 1;
+}
+
+tr, td, th, table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+section#UserInfo {
+    overflow: visible;
+    margin: 0px 0px 10px 0px;
+}
+
+section#UserInfo fieldset, section#UserInfo form {
+    padding: 10px 20px 20px 20px;
+    display: block;
+}
+
+section#UserInfo fieldset legend {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+section#UserInfo label, section#UserInfo input {
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+}
+
+section#UserInfo input {
+    padding: 7px;
+    width: 100%;
+    outline: none;
+}
+
+section#UserInfo button {
+    padding: 10px;
+    background-color: white;
+    outline: none;
+    border: 1px solid black;
+    margin: 5px 0px;
+}
+
+section#UserInfo button[type="submit"] {
+    margin-top: 5px;
+}
+
+section#UserInfo button:hover {
+    background-color: rgba(211, 211, 211, 0.274);
+}
+
+section#UserInfo a, section#UserInfo button {
+    display: block;
+    color: black;
+    margin: 5px 0px;
+}
+
+section#UserInfo button#DeleteAccount, div#PopUpMessage button {
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+div#PopUpMessage {
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    outline: 2px solid black;
+    display: none;
+}
+
+div#PopUpMessage button, div#PopUpMessage a {
+    text-decoration: none;
+    margin-top: 7px;
+}
+
+div#PopUpMessage button:hover, div#PopUpMessage a:hover {
+    text-decoration: underline;
+}
+
+div#erro {
+    color: red;
+}

@@ -135,13 +135,42 @@
     }
 
 
+    function SelectAllBuysFromSpecificClient($id)
+    {
+        $sql = "SELECT * FROM COMPRA WHERE CLIENTE_ID = :id";
+
+        $conn = new Database();
+        $conn = $conn->connect();
+
+        $query = $conn->prepare($sql);
+        $query->execute([':id' => $id]);
+
+        $query = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $query;
+    }
+
+
     function FormatPrice($price) {
         if (count(explode('.', $price)) === 1 ) {
             $price .= '.00';
         } elseif (strlen(explode('.', $price)[1]) === 1) {
             $price .= '0';
         }
+        $price = explode('.', $price);
+        $price = $price[0].'<span>.'.$price[1].'</span>';
         return $price;
+    }
+
+
+    function FormatDesc($text, $lenght)
+    {
+        $textFormat = substr($text, 0, $lenght);
+        if ($textFormat != $text) {
+            $textFormat .= '...';
+        }
+
+        return $textFormat;
     }
 
 
@@ -155,7 +184,33 @@
         $query = $conn->prepare($sql);
         $query->execute([$id]);
 
-        $query = $query->fetch(\PDO::FETCH_ASSOC);
+        $result = $query->fetch(\PDO::FETCH_ASSOC);
         
-        return $query;
+        return $result;
+    }
+
+
+    function SelectEspecificClient($id)
+    {
+        $sql = "SELECT * FROM CLIENTES WHERE CLIENTE_ID = :id";
+
+        $conn = new Database();
+        $conn = $conn->connect();
+        
+        $query = $conn->prepare($sql);
+        $query->execute([':id' => $id]);
+
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    
+
+    function CreateVerifyCode()
+    {
+        $verifyCode = null;
+        for ($i=0;$i<6;$i++) {
+            $verifyCode .= rand(0, 9);
+        }
+        return $verifyCode;
     }

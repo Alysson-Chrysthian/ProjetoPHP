@@ -74,7 +74,7 @@
                 </button>
                 <a href="SignUp.php">Registrar-se</a>
                 <a href="LogInAdm.php">Entra como administrador</a>
-                <a href="ForgotPass.php">Esqueci Senha</a>
+                <a href="VerifyMail.php">Esqueci Senha</a>
             </form>
             <?php if (isset($message)) print '<p id="erro">'.$message.'</p>' ?>
         </section>

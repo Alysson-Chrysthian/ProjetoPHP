@@ -1,5 +1,19 @@
 <?php
     use App\Enums\UserAcess\UserAcess;
+    use App\Class\Database\Database;
+
+    $sql = "SELECT * FROM clientes WHERE CLIENTE_ID = :id";
+
+    try {
+        $conn = new Database();
+        $conn = $conn->connect();
+        $query = $conn->prepare($sql);
+        $query->execute([':id' => $_SESSION['user_id']]);
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        header($_SERVER['SERVER_PROTOCOL'].' 403');
+        exit();
+    }
 ?>
 <figure>
     <a href="index.php"><img src="assets/images/figures/RiscaFaca-Logo.png" alt="Logo Da Risca Faca"></a>
@@ -12,7 +26,7 @@
         
         <div id="form">
             <form action="index.php" method="get">
-                <input type="text" name="pesq" id="pesqId" placeholder="pesquisar comida">
+                <input type="text" name="pesq" id="pesqId" placeholder="Pesquisar produto">
                 <button type="submit">
                     <span class="material-symbols-outlined" id="SearchIcon">
                         Search
@@ -23,9 +37,14 @@
                 <a href="index.php">Inicio</a>
                 <a href="About.php">Sobre</a>
                 <?php
-                    if (unserialize($_SESSION['acessType']) == UserAcess::USER_ADM) {
-                        print '<a href="FoodAdd.php">Cadastrar Produto</a>';
-                    }
+                if (unserialize($_SESSION['acessType']) == UserAcess::USER_ADM) {
+                    print '<a href="FoodAdd.php">Cadastrar Produto</a>';
+                } 
+                else {
+                ?>
+                    <a href="UserProfile.php"><?php echo $user['CLIENTE_NOME'] ?></a>
+                <?php 
+                }   
                 ?>
                 <a href="../App/php/scripts/Exit.php">Sair</a>
             </div>
